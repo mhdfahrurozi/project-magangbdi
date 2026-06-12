@@ -38,7 +38,7 @@ const projects = [
     id: "spa-bmn",
     title: "Sistem Pemeliharaan Aset BMN",
     description: "Optimasi siklus pemeliharaan aset Barang Milik Negara dengan pelacakan status terpadu.",
-    image: "/projects/inkubis-cover.png",
+    image: "/projects/sipasbdi-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-rose-500 to-pink-400"
   },
