@@ -6,7 +6,7 @@ const projects = [
     id: "simonev",
     title: "SIMONEV BDI MEDAN",
     description: "Sistem manajemen sertifikasi, asesmen (APL01/02), dan otomatisasi dokumen PDF untuk efisiensi birokrasi.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/simonev1.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-blue-500 to-cyan-400"
   },
