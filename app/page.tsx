@@ -92,7 +92,7 @@ export default function Home() {
           
           {/* Description */}
           <p className="mx-auto mt-8 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400/90 font-light">
-            Aplikasi yang telah kami kembangkan untuk mendukung langkah awal transformasi digital, otomasi proses bisnis, dan implementasi teknologi modern di <span className="text-white font-normal">Balai Diklat Industri Medan.</span>
+            Aplikasi yang telah kami kembangkan untuk mendukung langkah transformasi digital, otomasi proses bisnis, dan implementasi teknologi modern di <span className="text-white font-normal">Balai Diklat Industri Medan.</span>
           </p>
         </div>
       </section>
