@@ -6,7 +6,7 @@ const projects = [
     id: "simonev",
     title: "SIMONEV BDI MEDAN",
     description: "Sistem manajemen sertifikasi, asesmen (APL01/02), dan otomatisasi dokumen PDF untuk efisiensi birokrasi.",
-    image: "/projects/simonev1.png",
+    image: "/projects/simonev-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-blue-500 to-cyan-400"
   },
@@ -14,7 +14,7 @@ const projects = [
     id: "sim-nonpersediaan",
     title: "SIM Non-Persediaan",
     description: "Digitalisasi manajemen inventaris aset non-persediaan dengan sistem pelaporan real-time.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/simbhp-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-emerald-500 to-teal-400"
   },
@@ -22,7 +22,7 @@ const projects = [
     id: "survey-kinerja",
     title: "Survey Kinerja AKHLAK",
     description: "Monitoring budaya kerja organisasi melalui dashboard analitik dan integrasi data berbasis IoT.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/survey-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-orange-500 to-amber-400"
   },
@@ -30,7 +30,7 @@ const projects = [
     id: "apl-lsp",
     title: "APL LSP BDI Medan",
     description: "Sistem manajemen asesmen (APL01/02), dan otomatisasi dokumen PDF untuk efisiensi birokrasi.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/lsp-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-indigo-500 to-purple-400"
   },
@@ -38,7 +38,7 @@ const projects = [
     id: "spa-bmn",
     title: "Sistem Pemeliharaan Aset BMN",
     description: "Optimasi siklus pemeliharaan aset Barang Milik Negara dengan pelacakan status terpadu.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/inkubis-cover.png",
     technologies: ["React.js", "TypeScript", "PostgreSQL", "Tailwind.css"],
     color: "from-rose-500 to-pink-400"
   },
@@ -46,7 +46,7 @@ const projects = [
     id: "inkubis",
     title: "Inkubator Bisnis",
     description: "Platform ekosistem digital untuk pengelolaan tenant dan akselerasi startup di BDI Medan.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/inkubis-cover.png",
     technologies: ["Laravel", "Vue.js", "PostgreSQL", "Google API"],
     color: "from-sky-500 to-blue-400"
   }, 
@@ -54,7 +54,7 @@ const projects = [
     id: "wbs-simulator",
     title: "WBS Simulator",
     description: "Simulasi Digital Timbangan Muatan Kendaraan di Pabrik Kelapa Sawit.",
-    image: "/projects/inkubis1.png",
+    image: "/projects/wbs-cover.png",
     technologies: ["Nuxt.js", "Tailwind.css", "Offline Apps"],
     color: "from-violet-500 to-fuchsia-400"
   }
