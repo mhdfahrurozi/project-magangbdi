@@ -6,24 +6,24 @@ import Link from "next/link";
 
 // Data Detail Project (Bisa disesuaikan atau di-fetch berdasarkan ID)
 const projectDetail = {
-  id: "inkubis",
-  title: "Inkubator Bisnis BDI Medan",
-  subtitle: "Platform Ekosistem Digital & Akselerasi Tenant",
+  id: "weighbridge-system",
+  title: "Simulasi Weighbridge System (Sistem Jembatan Timbang)",
+  subtitle: "Simulasi pencatatan & Monitoring Timbangan Pabrik",
   description:
-    "Inkubator Bisnis (Inkubis) BDI Medan adalah platform manajemen terpadu yang dirancang untuk mendukung inkubasi startup, pendampingan tenant, serta monitoring perkembangan bisnis secara real-time. Aplikasi ini mendigitalisasi seluruh alur administrasi dari seleksi awal, inkubasi harian, hingga pelaporan performa usaha.",
-  webLink: "https://github.com/Programmer-BDI-Medan/inkubis", // Contoh Link Web Aplikasi
-  color: "from-sky-500 to-blue-400",
-  technologies: ["Next.js", "Node.js", "MongoDB", "Cloudinary", "Tailwind CSS"],
+    "Weighbridge System adalah Aplikasi simulasi yang memfasilitasi integrasi data berat masuk dan keluar secara sistematis hingga pencetakan nota timbangan, serta terdapat mode Latihan dan Ujian",
+  webLink: "https://weighbridge.kodeku.site/", 
+  color: "from-emerald-500 to-green-600",
+  technologies: ["Nuxt.js", "Node.js", "Offline System", "localStorage", "Tailwind CSS"],
   screenshots: [
-    "/projects/inkubis1.png", // Ganti dengan path screenshot Anda
-    "/projects/inkubis-dashboard.png",
-    "/projects/inkubis-tenant.png",
+    "/projects/wbs-cover.png", // Ganti dengan path screenshot Anda
+    "/projects/weighbridge-dashboard.png",
+    "/projects/weighbridge-report.png",
   ],
   features: [
-    "Sistem Seleksi & Registrasi Tenant Online",
-    "Dashboard Evaluasi Kemajuan Tenant (Matriks Bisnis)",
-    "Manajemen Dokumen Legalitas & Modul Mentoring",
-    "Sistem Pelaporan Keuangan & Omzet Terintegrasi"
+    "Integrasi Real-time dengan Indikator Timbangan Digital",
+    "Otomatisasi Data Bruto, Tara, dan Perhitungan Netto",
+    "Sistem Anti-Fraud (Pencatatan Log & Kunci Data)",
+    "Pelaporan Rekapitulasi Timbangan Harian & Bulanan Terintegrasi"
   ],
   documents: [
     { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
@@ -156,17 +156,7 @@ export default function ProjectDetailPage() {
               </span>
             ))}
           </div>
-          
-          <div className="mt-8 pt-6 border-t border-slate-900 space-y-4 text-xs text-slate-500">
-            <div className="flex justify-between">
-              <span>Status Dokumen</span>
-              <span className="text-emerald-400 font-medium">Final Verified</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Environment</span>
-              <span className="text-slate-300">Production Node Cluster</span>
-            </div>
-          </div>
+
         </div>
       </section>
 

@@ -15,15 +15,14 @@ const projectDetail = {
   color: "from-sky-500 to-blue-400",
   technologies: ["Next.js", "Node.js", "MongoDB", "Cloudinary", "Tailwind CSS"],
   screenshots: [
-    "/projects/inkubis1.png", // Ganti dengan path screenshot Anda
+    "/projects/inkubis-cover.png", // Ganti dengan path screenshot Anda
     "/projects/inkubis-dashboard.png",
     "/projects/inkubis-tenant.png",
   ],
   features: [
     "Sistem Seleksi & Registrasi Tenant Online",
-    "Dashboard Evaluasi Kemajuan Tenant (Matriks Bisnis)",
-    "Manajemen Dokumen Legalitas & Modul Mentoring",
-    "Sistem Pelaporan Keuangan & Omzet Terintegrasi"
+    "Dashboard Evaluasi Kemajuan Tenant",
+    "Manajemen Dokumen & Monitoring Tenant",
   ],
   documents: [
     { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
@@ -156,17 +155,7 @@ export default function ProjectDetailPage() {
               </span>
             ))}
           </div>
-          
-          <div className="mt-8 pt-6 border-t border-slate-900 space-y-4 text-xs text-slate-500">
-            <div className="flex justify-between">
-              <span>Status Dokumen</span>
-              <span className="text-emerald-400 font-medium">Final Verified</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Environment</span>
-              <span className="text-slate-300">Production Node Cluster</span>
-            </div>
-          </div>
+  
         </div>
       </section>
 

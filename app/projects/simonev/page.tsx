@@ -6,29 +6,29 @@ import Link from "next/link";
 
 // Data Detail Project (Bisa disesuaikan atau di-fetch berdasarkan ID)
 const projectDetail = {
-  id: "inkubis",
-  title: "Inkubator Bisnis BDI Medan",
-  subtitle: "Platform Ekosistem Digital & Akselerasi Tenant",
+ id: "simonev",
+  title: "Simonev BDI Medan",
+  subtitle: "Sistem Monitoring & Evaluasi Kinerja Terintegrasi",
   description:
-    "Inkubator Bisnis (Inkubis) BDI Medan adalah platform manajemen terpadu yang dirancang untuk mendukung inkubasi startup, pendampingan tenant, serta monitoring perkembangan bisnis secara real-time. Aplikasi ini mendigitalisasi seluruh alur administrasi dari seleksi awal, inkubasi harian, hingga pelaporan performa usaha.",
-  webLink: "https://github.com/Programmer-BDI-Medan/inkubis", // Contoh Link Web Aplikasi
-  color: "from-sky-500 to-blue-400",
-  technologies: ["Next.js", "Node.js", "MongoDB", "Cloudinary", "Tailwind CSS"],
+    "Simonev BDI Medan adalah platform manajemen performa yang dirancang untuk melacak, mengukur, dan mengevaluasi ketercapaian Indikator Kinerja Utama (IKU) secara real-time. Aplikasi ini mendigitalisasi proses input realisasi nilai, integrasi data dari berbagai unit kerja, serta menyediakan visualisasi capaian target kinerja instansi secara transparan.",
+  webLink: "https://simonev-bdimedan.zite.so", // Sesuaikan dengan repository atau link web Anda
+  color: "from-emerald-500 to-teal-400", // Menggunakan aksen hijau/teal yang identik dengan dashboard monitoring
+  technologies: ["Zite Backend", "TypeScript", "React.js", "Tailwind CSS", "PostgreSQL", "Radix UI"],
   screenshots: [
-    "/projects/inkubis1.png", // Ganti dengan path screenshot Anda
-    "/projects/inkubis-dashboard.png",
-    "/projects/inkubis-tenant.png",
+    "/projects/simonev-cover.png", // Jalur file screenshot aplikasi Simonev Anda
+    "/projects/simonev-iku.png",
+    "/projects/simonev-realisasi.png",
   ],
   features: [
-    "Sistem Seleksi & Registrasi Tenant Online",
-    "Dashboard Evaluasi Kemajuan Tenant (Matriks Bisnis)",
-    "Manajemen Dokumen Legalitas & Modul Mentoring",
-    "Sistem Pelaporan Keuangan & Omzet Terintegrasi"
+    "Manajemen & Penetapan Indikator Kinerja Utama (IKU)",
+    "Pencatatan & Pengukuran Nilai Realisasi Berkas secara Real-Time",
+    "Integrasi API Endpoints via Zite & TypeScript Backend",
+    "Visualisasi & Dashboard Capaian Target Kinerja Instansi"
   ],
   documents: [
-    { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
-    { name: "UseCase_Diagram_Inkubis.png", size: "1.8 MB", type: "image" },
-    { name: "SOP_Tenant_Inkubasi_BDI.docx", size: "850 KB", type: "word" },
+    { name: "Flowchart_Sistem_Simonev_v1.pdf", size: "2.4 MB", type: "pdf" },
+    { name: "UseCase_Diagram_Simonev.png", size: "1.8 MB", type: "image" },
+    { name: "SOP_Kinerja_Simonev_BDI.docx", size: "850 KB", type: "word" },
   ],
 };
 
@@ -156,17 +156,7 @@ export default function ProjectDetailPage() {
               </span>
             ))}
           </div>
-          
-          <div className="mt-8 pt-6 border-t border-slate-900 space-y-4 text-xs text-slate-500">
-            <div className="flex justify-between">
-              <span>Status Dokumen</span>
-              <span className="text-emerald-400 font-medium">Final Verified</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Environment</span>
-              <span className="text-slate-300">Production Node Cluster</span>
-            </div>
-          </div>
+
         </div>
       </section>
 

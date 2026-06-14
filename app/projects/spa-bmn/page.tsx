@@ -15,7 +15,7 @@ const projectDetail = {
   color: "from-sky-500 to-blue-400",
   technologies: ["Next.js", "Node.js", "MongoDB", "Cloudinary", "Tailwind CSS"],
   screenshots: [
-    "/projects/inkubis1.png", // Ganti dengan path screenshot Anda
+    "/projects/sipasbdi-cover.png", // Ganti dengan path screenshot Anda
     "/projects/inkubis-dashboard.png",
     "/projects/inkubis-tenant.png",
   ],
@@ -157,16 +157,7 @@ export default function ProjectDetailPage() {
             ))}
           </div>
           
-          <div className="mt-8 pt-6 border-t border-slate-900 space-y-4 text-xs text-slate-500">
-            <div className="flex justify-between">
-              <span>Status Dokumen</span>
-              <span className="text-emerald-400 font-medium">Final Verified</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Environment</span>
-              <span className="text-slate-300">Production Node Cluster</span>
-            </div>
-          </div>
+    
         </div>
       </section>
 

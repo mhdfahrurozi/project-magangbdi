@@ -6,24 +6,24 @@ import Link from "next/link";
 
 // Data Detail Project (Bisa disesuaikan atau di-fetch berdasarkan ID)
 const projectDetail = {
-  id: "inkubis",
-  title: "Inkubator Bisnis BDI Medan",
-  subtitle: "Platform Ekosistem Digital & Akselerasi Tenant",
+  id: "apl-lsp",
+  title: "Aplikasi form APL LSP BDI Medan",
+  subtitle: "Platform Manajemen dan Evaluasi Kompetensi",
   description:
-    "Inkubator Bisnis (Inkubis) BDI Medan adalah platform manajemen terpadu yang dirancang untuk mendukung inkubasi startup, pendampingan tenant, serta monitoring perkembangan bisnis secara real-time. Aplikasi ini mendigitalisasi seluruh alur administrasi dari seleksi awal, inkubasi harian, hingga pelaporan performa usaha.",
-  webLink: "https://github.com/Programmer-BDI-Medan/inkubis", // Contoh Link Web Aplikasi
+    "Aplikasi form APL LSP BDI Medan adalah platform yang dirancang untuk mendukung proses evaluasi kompetensi peserta pelatihan. Aplikasi ini mempermudah pengisian dan pengelolaan formulir APL (Assessment of Prior Learning) serta memfasilitasi proses validasi kompetensi secara efisien.",
+  webLink: "https://apl-lspbdimedan.zite,so", 
   color: "from-sky-500 to-blue-400",
-  technologies: ["Next.js", "Node.js", "MongoDB", "Cloudinary", "Tailwind CSS"],
+  technologies: ["Zite Builder" ,"React.js", "Node.js", "PostgreSQL", "Radix UI", "Tailwind CSS"],
   screenshots: [
-    "/projects/inkubis1.png", // Ganti dengan path screenshot Anda
-    "/projects/inkubis-dashboard.png",
-    "/projects/inkubis-tenant.png",
+    "/projects/lsp-cover.png", // Ganti dengan path screenshot Anda
+    "/projects/apl-lsp-dashboard.png",
+    "/projects/apl-lsp-tenant.png",
   ],
   features: [
-    "Sistem Seleksi & Registrasi Tenant Online",
-    "Dashboard Evaluasi Kemajuan Tenant (Matriks Bisnis)",
-    "Manajemen Dokumen Legalitas & Modul Mentoring",
-    "Sistem Pelaporan Keuangan & Omzet Terintegrasi"
+    "Formulir Asesmen Mandiri (APL-01 & APL-02) Digital",
+    "Sistem Validasi Pengisian Formulir Kompetensi Peserta",
+    "Integrasi Sinkronisasi Data dan Cetak data APL dalam format PDF",
+    "Dashboard Monitoring Status Sertifikasi Real-time"
   ],
   documents: [
     { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
@@ -157,16 +157,7 @@ export default function ProjectDetailPage() {
             ))}
           </div>
           
-          <div className="mt-8 pt-6 border-t border-slate-900 space-y-4 text-xs text-slate-500">
-            <div className="flex justify-between">
-              <span>Status Dokumen</span>
-              <span className="text-emerald-400 font-medium">Final Verified</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Environment</span>
-              <span className="text-slate-300">Production Node Cluster</span>
-            </div>
-          </div>
+        
         </div>
       </section>
 
