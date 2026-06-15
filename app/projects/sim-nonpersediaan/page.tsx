@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projectDetail = {
-  id: "inkubis",
+  id: "simbhp",
   title: "SIM BHP Non Persediaan",
   subtitle: "Sistem Informasi Manajemen Barang Pakai Habis Non Persediaan",
   description:
@@ -37,7 +37,7 @@ const projectDetail = {
     { name: "Flowchart-BMN.png", size: "90 KB", type: "png" },
     {
       name: "Manual Book Sistem Persediaan Barang Pakai Habis Non Persediaan BDI Medan.pdf",
-      size: "6.06 MB",
+      size: "4.75 MB",
       type: "pdf",
     },
     { name: "usecase-bmn.png", size: "94 KB", type: "png" },
