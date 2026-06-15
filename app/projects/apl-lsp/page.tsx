@@ -11,7 +11,7 @@ const projectDetail = {
   subtitle: "Platform Manajemen dan Evaluasi Kompetensi",
   description:
     "Aplikasi form APL LSP BDI Medan adalah platform yang dirancang untuk mendukung proses evaluasi kompetensi peserta pelatihan. Aplikasi ini mempermudah pengisian dan pengelolaan formulir APL (Assessment of Prior Learning) serta memfasilitasi proses validasi kompetensi secara efisien.",
-  webLink: "https://apl-lspbdimedan.zite,so", 
+  webLink: "https://apl-lspbdimedan.zite.so", 
   color: "from-sky-500 to-blue-400",
   technologies: ["Zite Builder" ,"React.js", "Node.js", "PostgreSQL", "Radix UI", "Tailwind CSS"],
   screenshots: [
