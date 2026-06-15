@@ -16,8 +16,11 @@ const projectDetail = {
   technologies: ["Nuxt.js", "Node.js", "Offline System", "localStorage", "Tailwind CSS"],
   screenshots: [
     "/projects/wbs-cover.png", // Ganti dengan path screenshot Anda
-    "/projects/weighbridge-dashboard.png",
-    "/projects/weighbridge-report.png",
+    "/projects/wbs/ss1.png",
+    "/projects/wbs/ss2.png",
+    "/projects/wbs/ss3.png",
+    "/projects/wbs/ss4.png",
+    "/projects/wbs/ss5.png",
   ],
   features: [
     "Integrasi Real-time dengan Indikator Timbangan Digital",
@@ -26,9 +29,7 @@ const projectDetail = {
     "Pelaporan Rekapitulasi Timbangan Harian & Bulanan Terintegrasi"
   ],
   documents: [
-    { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
-    { name: "UseCase_Diagram_Inkubis.png", size: "1.8 MB", type: "image" },
-    { name: "SOP_Tenant_Inkubasi_BDI.docx", size: "850 KB", type: "word" },
+    { name: "Hasil Nota Cetak.pdf", size: "58 KB", type: "pdf" },
   ],
 };
 

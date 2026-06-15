@@ -193,7 +193,7 @@ export default function ProjectDetailPage() {
 
                 {/* Download Button Action */}
                 <a 
-                  href={`/downloads/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
+                  href={`/projects/survey/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
                   download
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-slate-400 border border-slate-800 hover:bg-white hover:text-slate-950 transition-all active:scale-90"
                   title="Unduh File"

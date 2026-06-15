@@ -16,8 +16,11 @@ const projectDetail = {
   technologies: ["Zite Builder" ,"React.js", "Node.js", "PostgreSQL", "Radix UI", "Tailwind CSS"],
   screenshots: [
     "/projects/lsp-cover.png", // Ganti dengan path screenshot Anda
-    "/projects/apl-lsp-dashboard.png",
-    "/projects/apl-lsp-tenant.png",
+    "/projects/lsp/ss1.png",
+    "/projects/lsp/ss2.png",
+    "/projects/lsp/ss3.png",
+    "/projects/lsp/ss4.png",
+    "/projects/lsp/ss5.png",
   ],
   features: [
     "Formulir Asesmen Mandiri (APL-01 & APL-02) Digital",
@@ -26,9 +29,8 @@ const projectDetail = {
     "Dashboard Monitoring Status Sertifikasi Real-time"
   ],
   documents: [
-    { name: "Flowchart_Sistem_Inkubis_v1.pdf", size: "2.4 MB", type: "pdf" },
-    { name: "UseCase_Diagram_Inkubis.png", size: "1.8 MB", type: "image" },
-    { name: "SOP_Tenant_Inkubasi_BDI.docx", size: "850 KB", type: "word" },
+    { name: "Hasil Dokumen Cetak apl01.pdf", size: "71.5 KB", type: "pdf" },
+    { name: "Hasil Dokumen Cetak apl02.pdf", size: "88.4 KB", type: "pdf" },
   ],
 };
 
@@ -193,7 +195,7 @@ export default function ProjectDetailPage() {
 
                 {/* Download Button Action */}
                 <a 
-                  href={`/downloads/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
+                  href={`/projects/lsp/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
                   download
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-slate-400 border border-slate-800 hover:bg-white hover:text-slate-950 transition-all active:scale-90"
                   title="Unduh File"
