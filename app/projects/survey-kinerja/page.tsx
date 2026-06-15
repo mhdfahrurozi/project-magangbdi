@@ -16,8 +16,10 @@ const projectDetail = {
   technologies: ["Zite Backend", "TypeScript", "React.js", "Tailwind CSS", "PostgreSQL", "Radix UI"],
   screenshots: [
     "/projects/survey-cover.png",
-    "/projects/survey-kuesioner.png",
-    "/projects/survey-rekap-nilai.png",
+    "/projects/ss1.png",
+    "/projects/ss2.png",
+    "/projects/ss3.png",
+    "/projects/ss4.png",
   ],
   features: [
     "Kuesioner Evaluasi Berbasis Core Values AKHLAK Kemenperin",
@@ -26,9 +28,8 @@ const projectDetail = {
     "Ekspor Laporan Rekapitulasi Nilai untuk Manajemen/Kepegawaian"
   ],
   documents: [
-    { name: "Flowchart_Sistem_Survey_Kinerja_v1.pdf", size: "2.4 MB", type: "pdf" },
-    { name: "UseCase_Diagram_Survey_Kinerja.png", size: "1.8 MB", type: "image" },
-    { name: "SOP_Tenant_Survey_Kinerja_BDI.docx", size: "850 KB", type: "word" },
+    { name: "Dokumen Analisis Kebutuhan.pdf", size: "2.4 MB", type: "pdf" },
+    { name: "Dokumen Perencanaan Pembangunan Sistem.pdf", size: "1.8 MB", type: "pdf" },
   ],
 };
 
