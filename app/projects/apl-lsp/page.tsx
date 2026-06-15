@@ -16,7 +16,6 @@ const projectDetail = {
   technologies: ["Zite Builder" ,"React.js", "Node.js", "PostgreSQL", "Radix UI", "Tailwind CSS"],
   screenshots: [
     "/projects/lsp-cover.png", // Ganti dengan path screenshot Anda
-    "/projects/lsp/ss1.png",
     "/projects/lsp/ss2.png",
     "/projects/lsp/ss3.png",
     "/projects/lsp/ss4.png",
