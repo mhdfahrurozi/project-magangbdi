@@ -16,8 +16,10 @@ const projectDetail = {
   technologies: ["Zite Backend", "TypeScript", "React.js", "Tailwind CSS", "PostgreSQL", "Radix UI"],
   screenshots: [
     "/projects/simonev-cover.png", // Jalur file screenshot aplikasi Simonev Anda
-    "/projects/simonev-iku.png",
-    "/projects/simonev-realisasi.png",
+    "/projects/simonev/ss1.png",
+    "/projects/simonev/ss2.png",
+    "/projects/simonev/ss3.png",
+    "/projects/simonev/ss4.png",
   ],
   features: [
     "Manajemen & Penetapan Indikator Kinerja Utama (IKU)",
