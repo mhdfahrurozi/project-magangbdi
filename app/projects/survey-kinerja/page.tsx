@@ -16,10 +16,10 @@ const projectDetail = {
   technologies: ["Zite Backend", "TypeScript", "React.js", "Tailwind CSS", "PostgreSQL", "Radix UI"],
   screenshots: [
     "/projects/survey-cover.png",
-    "/projects/ss1.png",
-    "/projects/ss2.png",
-    "/projects/ss3.png",
-    "/projects/ss4.png",
+    "/projects/survey/ss1.png",
+    "/projects/survey/ss2.png",
+    "/projects/survey/ss3.png",
+    "/projects/survey/ss4.png",
   ],
   features: [
     "Kuesioner Evaluasi Berbasis Core Values AKHLAK Kemenperin",
