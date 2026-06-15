@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Maganghub BDI Medan",
   description: "Maganghub Batch 1 Showcase - Programmer BDI Medan",
+  icons: {
+    icon: "/logo-app.svg",
+  },
 };
 
 export default function RootLayout({
