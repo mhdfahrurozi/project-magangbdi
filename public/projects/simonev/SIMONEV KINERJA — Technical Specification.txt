@@ -1,0 +1,659 @@
+SIMONEV KINERJA — Technical Specification & Architecture Blueprint
+Aplikasi: Sistem Monitoring dan Evaluasi Kinerja
+
+Instansi: Balai Diklat Industri (BDI) Medan
+
+Versi Dokumen: 1.0 — 7 Juni 2026
+
+Tujuan: Acuan rekonstruksi total menggunakan AI Builder
+
+1. TECH STACK & ENVIRONMENT
+Platform Builder: ZiteJS (React/TypeScript framework, arsitektur mirip Next.js)
+
+Runtime Backend: Cloudflare Workers (serverless edge functions)
+
+Database: Zite Database (PostgreSQL-backed, SDK ORM)
+
+Frontend:
+
+React (SPA, client-side rendering)
+
+TypeScript (strict mode)
+
+react-router-dom — routing berbasis SPA
+
+Tailwind CSS v3 — utility-first styling dengan CSS variable tokens (HSL)
+
+shadcn/ui — komponen UI (Button, Dialog, Select, Tabs, Card, Checkbox, ScrollArea, Skeleton, Sonner toast, dsb.)
+
+lucide-react — icon pack (LogIn, LogOut, Printer, Eye, Pencil, RefreshCw, dsb.)
+
+date-fns — formatting tanggal
+
+zite-auth-sdk — useAuth() hook, loginWithRedirect(), logout()
+
+zite-endpoints-sdk — typed RPC calls ke backend (pengganti fetch)
+
+Backend (src/api/*.ts):
+
+zod — validasi input/output schema
+
+zite-integrations-backend-sdk — ORM classes per tabel, createEndpoint(), ZiteError
+
+ZitePdf (built-in) — HTML → PDF rendering via headless Chromium
+
+Konfigurasi Penting:
+
+Access Mode: external (publik bisa akses tanpa login, login opsional)
+
+User Sync: enabled — user otomatis tersinkron ke tabel Users saat registrasi
+
+Bahasa HTML: lang="id", translate="no", class notranslate — mencegah browser auto-translate
+
+Font: Inter, fallback -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+
+2. DATABASE SCHEMA & DATA MODELS
+2.1 Tabel: Users
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| name | single_line_text | Primary field. Nama lengkap |
+
+| email | email | Email login (synced dari auth) |
+
+| role | single_select | Admin · Pelaksana · Kepala Balai · Publik |
+
+| accessCode | single_line_text | Kode akses opsional |
+
+| team | single_select | Tata Usaha · Kerjasama · Penyelenggara · Inkubator Bisnis · LSP |
+
+| submissions | linked_record → Submissions | One-to-Many |
+
+| validations | linked_record → Validations | One-to-Many |
+
+| id | UUID | Primary Key |
+
+2.2 Tabel: TujuanSasaran
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| nama | single_line_text | Primary field. Nama Tujuan/Sasaran |
+
+| tipe | single_select | Tujuan (TJ) · Sasaran (SK) · TJ · SK |
+
+| tahun | number | Tahun anggaran (1 desimal) |
+
+| deskripsi | long_text | Deskripsi opsional |
+
+| indicators | linked_record → Indicators | One-to-Many |
+
+| id | UUID | Primary Key |
+
+2.3 Tabel: Indicators
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| indicatorName | single_line_text | Primary field. Nama indikator kinerja |
+
+| type | single_select | IKU (Indikator Kinerja Utama) · IKK |
+
+| unit | single_select | Persen (%) · Nilai · Indeks · Tenant |
+
+| year | number | Tahun (1 desimal) |
+
+| target | number | Target kinerja tahunan (1 desimal) |
+
+| realizationValue | number | Realisasi tahunan (1 desimal) |
+
+| isActive | checkbox | Status aktif |
+
+| teams | multiple_select | Tim penanggung jawab |
+
+| formatFIle | attachments | Template file format |
+
+| tujuanSasaran | linked_record → TujuanSasaran | Many-to-One |
+
+| submissions | linked_record → Submissions | One-to-Many |
+
+| indicatorPlans | linked_record → IndicatorPlans | One-to-Many |
+
+| indicatorRealizations | linked_record → IndicatorRealizations | One-to-Many |
+
+| indikatorAnggaran | linked_record → IndikatorAnggaran | One-to-Many |
+
+| id | UUID | Primary Key |
+
+2.4 Tabel: IndicatorPlans
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| planLabel | single_line_text | Primary field. Auto-generated label |
+
+| indicator | linked_record → Indicators | Many-to-One |
+
+| year | number | Tahun (0 desimal) |
+
+| quarter | single_select | Triwulan I · Triwulan II · Triwulan III · Triwulan IV |
+
+| targetFisik | number | Target fisik triwulanan (2 desimal, satuan %) |
+
+| rencanaAksi | long_text | Uraian rencana aksi |
+
+| id | UUID | Primary Key |
+
+2.5 Tabel: IndicatorRealizations
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| realizationLabel | single_line_text | Primary field. Auto-generated label |
+
+| indicator | linked_record → Indicators | Many-to-One |
+
+| year | number | Tahun (0 desimal) |
+
+| quarter | single_select | Triwulan I – Triwulan IV |
+
+| realizationValue | number | Nilai realisasi (2 desimal) |
+
+| realizationNotes | long_text | Catatan realisasi |
+
+| input1 | number | Input kalkulasi 1 (2 desimal) |
+
+| input2 | number | Input kalkulasi 2 (2 desimal) |
+
+| id | UUID | Primary Key |
+
+2.6 Tabel: Submissions
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| submissionTitle | single_line_text | Primary field. Auto-generated |
+
+| user | linked_record → Users | Many-to-One |
+
+| indicator | linked_record → Indicators | Many-to-One |
+
+| period | single_select | Triwulan I – Triwulan IV |
+
+| progress | number | Progress % (1 desimal) |
+
+| realization | number | Nilai realisasi (1 desimal) |
+
+| kendala | long_text | Kendala pelaksanaan |
+
+| tindakLanjut | long_text | Tindak lanjut |
+
+| uraianRencanaAksi | long_text | Uraian rencana aksi |
+
+| uraianRealisasiRencanaAksi | long_text | Uraian realisasi rencana aksi |
+
+| fileUrl | url | Link dokumen pendukung |
+
+| status | single_select | Pending · Approved · Rejected |
+
+| submittedAt | datetime | Timestamp pengiriman (ISO 8601) |
+
+| validations | linked_record → Validations | One-to-Many |
+
+| id | UUID | Primary Key |
+
+2.7 Tabel: Validations
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| validationId | autonumber | Primary field |
+
+| submission | linked_record → Submissions | Many-to-One |
+
+| validator | linked_record → Users | Many-to-One |
+
+| notes | long_text | Catatan validasi/penolakan |
+
+| status | single_select | Approved · Rejected |
+
+| validatedAt | datetime | Timestamp validasi |
+
+| dokumenRapat | url | Link dokumen rapat/risalah |
+
+| id | UUID | Primary Key |
+
+2.8 Tabel: IndikatorAnggaran
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| label | single_line_text | Primary field. Auto: Anggaran-{year}-{id} |
+
+| tahun | number | Tahun (0 desimal) |
+
+| indicator | linked_record → Indicators | Many-to-One |
+
+| paguAwal | currency (Rp) | Pagu anggaran awal (0 desimal) |
+
+| realisasiAnggaran | currency (Rp) | Realisasi anggaran (0 desimal) |
+
+| capaianAnggaran | number | Auto-computed: (realisasiAnggaran / paguAwal) × 100 (2 desimal) |
+
+| id | UUID | Primary Key |
+
+2.9 Tabel: AnnualDocuments
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| judul | single_line_text | Primary field. Judul dokumen |
+
+| tahun | number | Tahun (0 desimal) |
+
+| documentUrl | url | Link dokumen |
+
+| tipeDokumen | single_line_text | Tipe/kategori dokumen |
+
+| id | UUID | Primary Key |
+
+2.10 Tabel: PageViews
+| Field (SDK Name) | Tipe | Keterangan |
+
+|---|---|---|
+
+| page | single_line_text | Primary field. Identifier halaman (e.g. public-dashboard) |
+
+| viewCount | number | Total pengunjung unik (0 desimal) |
+
+| visitorIDs | long_text | Comma-separated visitor UUIDs untuk deduplikasi |
+
+| id | UUID | Primary Key |
+
+Diagram Relasi (ERD Ringkas)
+
+TujuanSasaran (1) ──→ (N) Indicators
+
+Indicators    (1) ──→ (N) IndicatorPlans
+
+Indicators    (1) ──→ (N) IndicatorRealizations
+
+Indicators    (1) ──→ (N) Submissions
+
+Indicators    (1) ──→ (N) IndikatorAnggaran
+
+Users         (1) ──→ (N) Submissions
+
+Submissions   (1) ──→ (N) Validations
+
+Users         (1) ──→ (N) Validations (sebagai validator)
+
+3. USER ROLES & AUTHENTICATION PERMISSIONS
+Autentikasi
+Metode: Magic Link (email) + Google Sign-In
+
+Signup: Open (siapa pun bisa daftar)
+
+User Sync: Otomatis membuat record di tabel Users saat signup
+
+Default role: Ditentukan Admin melalui Manajemen User
+
+Matriks Hak Akses
+| Fitur / Halaman | Admin | Kepala Balai | Pelaksana | Publik |
+
+|---|:---:|:---:|:---:|:---:|
+
+| Halaman Publik (/) — Dashboard read-only | ✅ | ✅ | ✅ | ✅ |
+
+| Admin Panel (/admin) | ✅ | ❌ | ❌ | ❌ |
+
+| Dashboard Statistik | ✅ | ❌ | ❌ | ❌ |
+
+| Perencanaan Kinerja (CRUD Tujuan/Sasaran, Indikator, Rencana Aksi) | ✅ | ❌ | ❌ | ❌ |
+
+| Pengukuran Kinerja (Input Realisasi, Realisasi Anggaran) | ✅ | ❌ | ❌ | ❌ |
+
+| Pelaporan Kinerja (Validasi + Cetak PDF) | ✅ | ✅ | ❌ | ❌ |
+
+| Monitoring Kinerja (Tabel overview) | ✅ | ✅ | ❌ | ❌ |
+
+| Manajemen User (CRUD user, assign role/team) | ✅ | ❌ | ❌ | ❌ |
+
+| Pelaksana Panel (/pelaksana) | ❌ | ❌ | ✅ | ❌ |
+
+| Input Monitoring (submit laporan per indikator) | ❌ | ❌ | ✅ | ❌ |
+
+| Hasil Laporan Saya (lihat status, edit jika ditolak, cetak) | ❌ | ❌ | ✅ | ❌ |
+
+| Kepala Balai Panel (/kepala-balai) | ❌ | ✅ | ❌ | ❌ |
+
+| Pelaporan & Validasi (approve/reject + cetak PDF) | ❌ | ✅ | ❌ | ❌ |
+
+| Monitoring Kinerja (read-only overview) | ❌ | ✅ | ❌ | ❌ |
+
+Proteksi Backend
+Semua 25 endpoint API menggunakan authenticated: true kecuali 2:
+
+trackPageView — publik (untuk visitor counter)
+
+getPublicDashboard — publik (data dashboard publik)
+
+Endpoint sensitif (validasi, hapus, simpan) mengecek context.user.role dan melempar ZiteError({ code: 'FORBIDDEN' }) jika role tidak sesuai
+
+4. CORE FEATURES & BUSINESS LOGIC
+4.1 Halaman Publik (/)
+Dashboard read-only menampilkan tabel capaian kinerja tahun berjalan + perbandingan 3 tahun terakhir
+
+Filter Tahun di navbar (dropdown)
+
+Visitor Counter:
+
+Frontend: membuat visitorId unik via crypto.randomUUID(), disimpan di localStorage (simonev_visitor_id)
+
+Backend: trackPageView endpoint — cek visitorId terhadap daftar di field visitorIDs (comma-separated). Jika sudah ada → tidak increment, hanya return count. Jika baru → increment viewCount, append visitorId (max 5000 entries)
+
+Efek: refresh/navigasi panel tidak menambah counter; hanya browser/device baru yang dihitung
+
+Tombol Login/Logout responsif di navbar
+
+Generate PDF: tombol window.print() untuk versi cetak halaman publik dengan header cetak khusus
+
+4.2 Modul Perencanaan Kinerja (Admin)
+CRUD Tujuan & Sasaran: tipe Tujuan (TJ) atau Sasaran (SK), difilter per tahun
+
+CRUD Indikator Kinerja: linked ke TujuanSasaran, support tipe IKU/IKK, satuan, target, multi-tim, file format
+
+Rencana Aksi per Triwulan: per indikator, input targetFisik (%) dan rencanaAksi (teks) untuk Triwulan I–IV → disimpan di IndicatorPlans
+
+4.3 Modul Pengukuran Kinerja (Admin)
+Filter Tahun global
+
+Tab Capaian Kinerja: Admin input realizationValue per indikator per triwulan → disimpan di IndicatorRealizations. Juga support input1 & input2 untuk kalkulasi khusus
+
+Tab Realisasi Anggaran:
+
+Input: paguAwal (Rp) dan realisasiAnggaran (Rp) per indikator per tahun
+
+Rumus Otomatis: capaianAnggaran = (realisasiAnggaran / paguAwal) × 100 — dihitung server-side di endpoint saveIndikatorAnggaran
+
+Disimpan di tabel IndikatorAnggaran
+
+Tab Efisiensi & Efektivitas (Read-Only):
+
+Sinkronisasi otomatis: membaca data dari IndikatorAnggaran (Tab Realisasi Anggaran) dan menghitung:
+
+Capaian Output (%) = (Realisasi / Target) × 100
+
+Capaian Anggaran (%) — diambil dari tabel IndikatorAnggaran
+
+Efisiensi (%) = (Capaian Output / Capaian Anggaran) × 100
+
+Label: ≥110% Sangat Efisien, ≥90% Efisien, ≥80% Cukup Efisien, <80% Tidak Efisien
+
+4.4 Modul Pelaporan Kinerja (Admin & Kepala Balai)
+Tab Validasi:
+
+Daftar submissions dari Pelaksana, filter by status
+
+Detail modal: lihat semua field, progress bar, link dokumen
+
+Aksi: Setujui atau Tolak (wajib isi catatan penolakan + opsional link dokumen rapat)
+
+Membuat record di tabel Validations + update Submissions.status
+
+Tab Cetak PDF — Logika 2 Jalur:
+
+3 Bagian Laporan (checklist):
+Capaian Tahunan — tabel rekapitulasi per TujuanSasaran
+
+Matriks Triwulan — matriks detail per triwulan (banyak kolom)
+
+Efisiensi & Efektivitas — tabel analisis efisiensi
+
+Jalur 1 (Portrait A4): Jika Capaian Tahunan dan/atau Efisiensi dicentang → digabung ke SATU file PDF portrait. Jika keduanya → page-break di antara
+
+Jalur 2 (Landscape A4): Jika Matriks Triwulan dicentang → file PDF TERPISAH landscape
+
+Info banner biru: muncul saat Matriks + bagian lain dicentang bersamaan: "Matriks Triwulan akan diunduh secara terpisah dalam format Landscape..."
+
+Implementasi: window.open() per orientasi → HTML dokumen mandiri dengan inline CSS + @page { size: A4 portrait/landscape }
+
+Layout Landscape Optimasi:
+
+table-layout: fixed; width: 100%
+
+Font: 8pt, padding: 4px 3px
+
+Kolom: No (3%), Sasaran (13%), Indikator (14%), sisanya proporsional per triwulan
+
+word-wrap: break-word; overflow-wrap: break-word; vertical-align: top
+
+Page-Break Rules: page-break-inside: avoid; break-inside: avoid pada <tr> dan blok tanda tangan
+
+Tanda Tangan Dinamis:
+
+Endpoint getKepalaBalaiName → query Users table cari user dengan role === 'Kepala Balai', return nama
+
+Ditampilkan di footer laporan: "Kepala Balai Diklat Industri Medan" + nama dinamis + garis NIP
+
+4.5 Modul Monitoring Kinerja (Admin & Kepala Balai)
+Tabel overview per indikator: target vs realisasi per triwulan, capaian %, color-coded bars
+
+Modal detail per indikator: timeline submissions, plans, dan realizations
+
+4.6 Panel Pelaksana
+Input Monitoring: Pelaksana memilih indikator (difilter by team), mengisi progress, kendala, tindak lanjut, uraian rencana aksi, uraian realisasi, dan upload link dokumen → submit ke Submissions dengan status Pending
+
+Hasil Laporan Saya: Daftar submissions milik user. Bisa lihat detail, cetak individu (modal PrintLaporan), dan edit + kirim ulang jika status Rejected
+
+5. UI/UX LAYOUT STANDARDS
+Tema Warna
+Primary: hsl(217 91% 38%) — Royal Blue instansi ≈ #1054A6
+
+Secondary: hsl(214 32% 91%) — Light blue-gray
+
+Accent: hsl(214 100% 93%) — Very light blue
+
+Background: Pure white hsl(0 0% 100%)
+
+Foreground: Dark navy hsl(222 47% 11%)
+
+Muted: hsl(210 40% 96%) dengan foreground hsl(215 16% 47%)
+
+Destructive: hsl(0 84% 60%) — Red untuk error/tolak
+
+Border: hsl(214 32% 91%)
+
+Border Radius: 0.5rem (8px) base
+
+Semua warna menggunakan CSS variables — WAJIB pakai Tailwind token classes (bg-primary, text-foreground, border-border), DILARANG hardcode hex/rgb
+
+Chart Colors (5 variabel)
+chart-1: Royal Blue (primary)
+
+chart-2: Green hsl(142 71% 45%)
+
+chart-3: Orange hsl(38 92% 50%)
+
+chart-4: Red hsl(0 84% 60%)
+
+chart-5: Purple hsl(263 70% 50%)
+
+Struktur Layout
+Halaman Publik: Full-width, navbar bg-primary di atas, konten centered max-w-5xl
+
+Panel Internal (Admin/Kepala Balai/Pelaksana): Layout 2 kolom fixed:
+
+Sidebar kiri: w-64, bg-primary, menu navigasi vertikal, logo "SIMONEV KINERJA / BDI Medan", nama user, tombol "Halaman Publik" + "Keluar"
+
+Main content kanan: flex-1 overflow-auto, scrollable, padding p-6
+
+Responsive: Navbar publik menyesuaikan mobile (teks disingkat, padding dikecilkan). Panel internal menggunakan fixed sidebar (desktop-oriented).
+
+Komponen UI Standar
+Tabel data: bg-card rounded-xl border shadow-sm, header bg-muted/30, zebra-striping bg-muted/20
+
+Badge status: Hijau (Approved), Kuning (Pending), Merah (Rejected) — masing-masing bg-{color}-100 text-{color}-700
+
+Card metriks: bg-card rounded-xl border shadow-sm p-5
+
+Dialog/Modal: shadcn Dialog dengan max-h-[90vh] scroll, header border-b, footer border-t
+
+Toast: Sonner dengan richColors
+
+Loading: Skeleton loaders sesuai konten shape
+
+Aturan Khusus
+Browser Auto-Translate Disabled: <html lang="id" translate="no" class="notranslate"> — diterapkan via useEffect di App.tsx root
+
+Print CSS: @media print rule di index.css menyembunyikan .print\\:hidden, menampilkan .hidden.print\\:block, hide nav
+
+6. API ENDPOINTS REGISTRY
+| Endpoint | Auth | Deskripsi |
+
+|---|:---:|---|
+
+| getPublicDashboard | ❌ | Data dashboard publik (capaian + perbandingan 3 tahun) |
+
+| trackPageView | ❌ | Track + return visitor count (deduplicated) |
+
+| getAdminStats | ✅ | Statistik dashboard admin |
+
+| getIndicators | ✅ | List indikator (filter by year, team for Pelaksana) |
+
+| saveIndicator | ✅ | CRUD indikator |
+
+| deleteIndicator | ✅ | Hapus indikator |
+
+| getIndicatorDetail | ✅ | Detail indikator + plans + submissions + realizations |
+
+| getIndicatorPlans | ✅ | Rencana aksi per indikator per tahun |
+
+| saveIndicatorPlan | ✅ | Simpan rencana aksi semua triwulan |
+
+| saveRealization | ✅ | Simpan realisasi per indikator per triwulan |
+
+| getTujuanSasaran | ✅ | List tujuan/sasaran per tahun |
+
+| saveTujuanSasaran | ✅ | CRUD tujuan/sasaran |
+
+| deleteTujuanSasaran | ✅ | Hapus tujuan/sasaran |
+
+| getMonitoringTable | ✅ | Tabel overview indikator + realisasi per triwulan |
+
+| getMonitoring | ✅ | Data monitoring (approved submissions) |
+
+| submitForm | ✅ | Pelaksana submit laporan monitoring |
+
+| getMySubmissions | ✅ | Submission milik user yang login |
+
+| updateSubmission | ✅ | Re-submit laporan yang ditolak |
+
+| getSubmissionsForValidation | ✅ | List submissions untuk validasi (Admin/Kepala Balai) |
+
+| validateSubmission | ✅ | Approve/reject submission |
+
+| getIndikatorAnggaran | ✅ | Data realisasi anggaran per indikator per tahun |
+
+| saveIndikatorAnggaran | ✅ | Simpan pagu + realisasi anggaran, auto-compute capaian |
+
+| getLaporanTriwulan | ✅ | Data matriks triwulan untuk cetak (Admin/Kepala Balai only) |
+
+| getKepalaBalaiName | ✅ | Ambil nama Kepala Balai untuk tanda tangan PDF |
+
+| getUsers | ✅ | List semua user |
+
+| saveUser | ✅ | CRUD user |
+
+| deleteUser | ✅ | Hapus user |
+
+| saveAnnualDocument | ✅ | Simpan dokumen tahunan |
+
+| getAnnualDocument | ✅ | Ambil dokumen tahunan |
+
+7. FILE STRUCTURE MAP
+
+src/
+
+├── App.tsx                          # Root: Router + auth gate + translate prevention
+
+├── index.css                        # Tailwind + CSS variable theme tokens
+
+├── api/                             # 29 backend endpoints
+
+│   ├── trackPageView.ts             # Visitor counter (public)
+
+│   ├── getPublicDashboard.ts        # Public dashboard data
+
+│   ├── getAdminStats.ts             # Admin stats
+
+│   ├── getIndicators.ts             # List indicators
+
+│   ├── saveIndicator.ts / deleteIndicator.ts
+
+│   ├── getIndicatorDetail.ts        # Full indicator detail
+
+│   ├── getIndicatorPlans.ts / saveIndicatorPlan.ts
+
+│   ├── saveRealization.ts           # Save quarterly realization
+
+│   ├── getTujuanSasaran.ts / saveTujuanSasaran.ts / deleteTujuanSasaran.ts
+
+│   ├── getMonitoringTable.ts / getMonitoring.ts
+
+│   ├── submitForm.ts                # Pelaksana submit
+
+│   ├── getMySubmissions.ts / updateSubmission.ts
+
+│   ├── getSubmissionsForValidation.ts / validateSubmission.ts
+
+│   ├── getIndikatorAnggaran.ts / saveIndikatorAnggaran.ts
+
+│   ├── getLaporanTriwulan.ts        # Matrix data for PDF
+
+│   ├── getKepalaBalaiName.ts        # Dynamic signature name
+
+│   ├── getUsers.ts / saveUser.ts / deleteUser.ts
+
+│   └── saveAnnualDocument.ts / getAnnualDocument.ts
+
+├── components/
+
+│   ├── PanelSidebar.tsx             # Sidebar navigasi (dipakai semua panel)
+
+│   ├── PrintLaporan.tsx             # Modal cetak laporan individu (Pelaksana)
+
+│   └── admin/IndicatorDetailModal.tsx
+
+├── pages/
+
+│   ├── PublicDashboard.tsx          # Halaman publik (/)
+
+│   ├── AdminPanel.tsx               # Admin wrapper (/admin)
+
+│   ├── KepalaBalaiPanel.tsx         # Kepala Balai wrapper (/kepala-balai)
+
+│   ├── PelaksanaPanel.tsx           # Pelaksana wrapper (/pelaksana)
+
+│   ├── admin/
+
+│   │   ├── AdminDashboard.tsx       # Statistik ringkasan
+
+│   │   ├── PerencanaanKinerja.tsx   # CRUD Tujuan/Sasaran + Indikator + Rencana Aksi
+
+│   │   ├── PengukuranKinerja.tsx    # Capaian + Realisasi Anggaran + Efisiensi
+
+│   │   ├── EvaluasiForm.tsx         # Validasi + Cetak PDF (2-jalur)
+
+│   │   ├── MonitoringKinerja.tsx    # Tabel monitoring overview
+
+│   │   └── ManajemenUser.tsx        # CRUD user
+
+│   └── pelaksana/
+
+│       ├── InputForm.tsx            # Form submit monitoring
+
+│       └── HasilLaporan.tsx         # Daftar laporan + cetak individu
+
+└── tailwind.config.ts               # Tailwind v3 config dengan CSS var tokens

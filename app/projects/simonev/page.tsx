@@ -28,9 +28,10 @@ const projectDetail = {
     "Visualisasi & Dashboard Capaian Target Kinerja Instansi"
   ],
   documents: [
-    { name: "Flowchart_Sistem_Simonev_v1.pdf", size: "2.4 MB", type: "pdf" },
-    { name: "UseCase_Diagram_Simonev.png", size: "1.8 MB", type: "image" },
-    { name: "SOP_Kinerja_Simonev_BDI.docx", size: "850 KB", type: "word" },
+    { name: "flowchart.png", size: "127 KB", type: "png" },
+    { name: "usecase.png", size: "105 KB", type: "png" },
+    { name: "Panduan Penggunaan Web SIMONEV BDI Medan.mp4", size: "37.7 MB", type: "mp4" },
+    { name: "SIMONEV KINERJA-Technical Specification.txt", size: "20.6 KB", type: "txt" },
   ],
 };
 
@@ -194,7 +195,7 @@ export default function ProjectDetailPage() {
 
                 {/* Download Button Action */}
                 <a 
-                  href={`/downloads/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
+                  href={`/projects/simonev/${doc.name}`} // Sesuaikan endpoint atau path public folder file Anda
                   download
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-slate-400 border border-slate-800 hover:bg-white hover:text-slate-950 transition-all active:scale-90"
                   title="Unduh File"
